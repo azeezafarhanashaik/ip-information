@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Address Details</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: url('https://source.unsplash.com/1600x900/?technology,network') no-repeat center center/cover;
+            padding: 20px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background-color: rgb(8, 6, 6);
+        }
+        .header {
+            font-size: 32px;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
+            padding-bottom: 40px;
+        }
+        .container {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(8, 150, 155, 0.7), 
+                0 0 25px rgba(8, 150, 155, 0.5), 
+                0 0 35px rgba(8, 150, 155, 0.3);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease-in-out;
+    width: 90%;
+    max-width: 500px;
+    animation: fadeIn 1s ease-in-out;
+    text-align: center;
+}
+
+        .container:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(5, 157, 119, 0.6);
+        }
+        p {
+            font-size: 20px;
+            margin: 12px 0;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: block;
+            text-align: left;
+            font-weight: bold;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #ffeb3b;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">🔍 Your IP Address Information 🔍</div>
+    <div class="container">
+        <p>Your Public IPv4 Address: <span class="highlight" id="ipv4-address">Fetching...</span></p>
+        <p>Your Public IPv6 Address: <span class="highlight" id="ipv6-address">Fetching...</span></p>
+        <p>ISP: <span class="highlight" id="isp">Fetching...</span></p>
+        <p>Timezone: <span class="highlight" id="timezone">Fetching...</span></p>
+        <p>Country: <span class="highlight" id="country">Fetching...</span></p>
+    </div>
+    
+    <script>
+        fetch('https://api64.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ipv6-address').textContent = data.ip;
+            })
+            .catch(error => {
+                document.getElementById('ipv6-address').textContent = 'Not Available';
+            });
+        
+        fetch('https://api.ipgeolocation.io/ipgeo?apiKey=28d04569c92a4e0a9a6eee31484e8549')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('ipv4-address').textContent = data.ip;
+                document.getElementById('isp').textContent = data.isp || 'Not Available';
+                document.getElementById('timezone').textContent = data.time_zone?.name || 'Not Available';
+                document.getElementById('country').textContent = data.country_name || 'Not Available';
+            })
+            .catch(error => {
+                document.getElementById('ipv4-address').textContent = 'Error fetching data';
+            });
+    </script>
+</body>
+</html>
