@@ -20,8 +20,3 @@ Check out the live version of the website: [IP Information](https://azeezafarhan
 ## 🔧 How It Works
 - The webpage uses an API to fetch the user's public IP details.
 - The fetched information is displayed in a structured format.
-
-https://www.linkedin.com/in/sk-azeeza-farhana-1a770a258)
-
----
-💡 *Feel free to contribute and improve this project!*
